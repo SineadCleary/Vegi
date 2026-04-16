@@ -24,7 +24,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
-import ie.setu.vegi.data.ProductModel
+import ie.setu.vegi.data.models.ProductModel
 import ie.setu.vegi.navigation.BottomAppBarProvider
 import ie.setu.vegi.navigation.History
 import ie.setu.vegi.navigation.NavHostProvider

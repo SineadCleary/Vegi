@@ -37,8 +37,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import ie.setu.vegi.R
-import ie.setu.vegi.data.ProductModel
-import ie.setu.vegi.data.fakeProducts
+import ie.setu.vegi.data.models.ProductModel
+import ie.setu.vegi.data.models.fakeProducts
 import ie.setu.vegi.ui.components.add.AddButton
 import ie.setu.vegi.ui.components.add.AddScreenText
 import ie.setu.vegi.ui.components.add.NameInput
@@ -134,9 +134,9 @@ fun AddScreen(modifier: Modifier = Modifier,
                 AddButton(
                     modifier = modifier,
                     product = ProductModel(
-                        vegStatus = vegStatus,
+//                        vegStatus = vegStatus,
                         name = name,
-                        imagePath = imagePath
+                        imageUrl = imagePath
                     ),
                     snackbarHostState = snackbarHostState
                 )

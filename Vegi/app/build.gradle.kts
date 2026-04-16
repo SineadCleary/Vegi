@@ -81,6 +81,11 @@ dependencies {
     // ML Kit barcode scanning
     implementation(libs.barcode.scanning)
 
+    //Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.gson)
+
     implementation(libs.core.splashscreen)
 
     testImplementation(libs.junit)

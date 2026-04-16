@@ -81,7 +81,7 @@ fun DetailsScreen(
                 onValueChange = {
                     nameText = it
                     validate(nameText)
-                    product.name = nameText
+//                    product.name = nameText
                 },
                 maxLines = 2,
                 label = { Text(text = "Name") },
@@ -117,12 +117,12 @@ fun DetailsScreen(
                     unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
                 )
             ) // End of Name Field
-            vegStatus = product.vegStatus
+            vegStatus = product.vegStatus.toString()
             RadioButtonGroup(
                 selectedVegStatus = vegStatus,
                 onVegStatusChange = {
                     vegStatus = it
-                    product.vegStatus = it
+//                    product.vegStatus = it
                     onFieldChanged = true
                 }
             )

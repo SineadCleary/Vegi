@@ -13,7 +13,6 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.toMutableStateList
@@ -26,8 +25,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import ie.setu.vegi.R
-import ie.setu.vegi.data.ProductModel
-import ie.setu.vegi.data.fakeProducts
+import ie.setu.vegi.data.models.ProductModel
+import ie.setu.vegi.data.models.fakeProducts
 import ie.setu.vegi.ui.screens.add.AddViewModel
 import ie.setu.vegi.ui.screens.history.HistoryViewModel
 import ie.setu.vegi.ui.theme.VegiTheme

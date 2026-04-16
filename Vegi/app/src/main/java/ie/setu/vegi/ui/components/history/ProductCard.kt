@@ -51,9 +51,10 @@ import java.util.Date
 
 @Composable
 fun ProductCard(
-    vegStaus: String,
-    name: String,
-    imagePath: String,
+    vegStaus: String?,
+    name: String?,
+    brand: String?,
+    imagePath: String?,
     dateCreated: String,
     onClickDelete: () -> Unit,
     onClickDetails: () -> Unit
@@ -68,6 +69,7 @@ fun ProductCard(
         ProductCardContent(
             vegStaus,
             name,
+            brand,
             imagePath,
             dateCreated,
             onClickDelete,
@@ -77,9 +79,10 @@ fun ProductCard(
 
 @Composable
 private fun ProductCardContent(
-    vegStatus: String,
-    name: String,
-    imagePath: String,
+    vegStatus: String?,
+    name: String?,
+    brands: String?,
+    imagePath: String?,
     dateCreated: String,
     onClickDelete: () -> Unit,
     onClickDetails: () -> Unit
@@ -103,7 +106,7 @@ private fun ProductCardContent(
                     .padding(4.dp)
             ) {
                 val painter =
-                if (imagePath.isNotEmpty()) {
+                if (imagePath!!.isNotEmpty()) {
                     rememberAsyncImagePainter(File(imagePath))
                 } else {
                     painterResource(R.drawable.placeholder_image)
@@ -122,8 +125,14 @@ private fun ProductCardContent(
                     .padding(4.dp)
             ) {
                 Text(
-                    text = name,
+                    text = name!!,
                     style = MaterialTheme.typography.headlineSmall.copy(
+                        fontWeight = FontWeight.ExtraBold
+                    )
+                )
+                Text(
+                    text = brands!!,
+                    style = MaterialTheme.typography.bodySmall.copy(
                         fontWeight = FontWeight.ExtraBold
                     )
                 )
@@ -150,7 +159,7 @@ private fun ProductCardContent(
                         else -> {}
                     }
                     Text(
-                        text = vegStatus,
+                        text = vegStatus!!,
                         style = MaterialTheme.typography.headlineSmall.copy(
                             color = when (vegStatus) {
                                 "Vegan" -> colorResource(R.color.veganColor)
@@ -226,6 +235,7 @@ fun ProductCardPreview() {
         ProductCard(
             vegStaus = "Vegetarian",
             name = "Banana",
+            brand = "Bananananana",
             imagePath = "",
             dateCreated = DateFormat.getDateTimeInstance().format(Date()),
             onClickDelete = { },

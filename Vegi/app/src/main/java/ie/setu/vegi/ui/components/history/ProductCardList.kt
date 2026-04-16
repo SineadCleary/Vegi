@@ -10,11 +10,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import ie.setu.vegi.data.ProductModel
-import ie.setu.vegi.data.fakeProducts
+import ie.setu.vegi.data.models.ProductModel
+import ie.setu.vegi.data.models.VegStatus
+import ie.setu.vegi.data.models.fakeProducts
 import ie.setu.vegi.ui.theme.VegiTheme
 import java.text.DateFormat
-import kotlin.text.contains
 
 
 @Composable
@@ -22,9 +22,9 @@ internal fun ProductCardList(
     products: List<ProductModel>,
     modifier: Modifier = Modifier,
     onDeleteProduct: (ProductModel) -> Unit,
-    onClickDetails: (Int) -> Unit
+    onClickDetails: (String) -> Unit
 ) {
-    var filters by remember { mutableStateOf(setOf<String>()) }
+    var filters by remember { mutableStateOf(setOf<VegStatus>()) }
     LazyColumn {
         item {
             FilterChipRow(
@@ -44,15 +44,16 @@ internal fun ProductCardList(
             }
         items(
             items = filteredProducts,
-            key = { product -> product.id }
+            key = { product -> product.barcode }
         ) { product ->
             ProductCard(
-                vegStaus = product.vegStatus,
+                vegStaus = product.vegStatus.toString(),
                 name = product.name,
-                imagePath = product.imagePath,
+                brand = product.brand,
+                imagePath = product.imageUrl,
                 dateCreated = DateFormat.getDateTimeInstance().format(product.dateAdded),
                 onClickDelete = { onDeleteProduct(product) },
-                onClickDetails = { onClickDetails(product.id) }
+                onClickDetails = { onClickDetails(product.barcode) }
             )
         }
     }

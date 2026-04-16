@@ -5,7 +5,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ie.setu.vegi.data.ProductModel
+import ie.setu.vegi.data.models.ProductModel
 import ie.setu.vegi.data.repository.RoomRepository
 import jakarta.inject.Inject
 import kotlinx.coroutines.launch
@@ -17,11 +17,11 @@ constructor(private val repository: RoomRepository,
 ) : ViewModel() {
 
     var product = mutableStateOf(ProductModel())
-    val id: Int = checkNotNull(savedStateHandle["id"])
+    val barcode: String = checkNotNull(savedStateHandle["barcode"])
 
     init {
         viewModelScope.launch {
-            repository.get(id).collect { objProduct ->
+            repository.get(barcode).collect { objProduct ->
                 product.value = objProduct
             }
         }

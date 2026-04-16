@@ -3,13 +3,10 @@ package ie.setu.vegi.navigation
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import ie.setu.vegi.data.ProductModel
-import ie.setu.vegi.ui.components.camera.CameraPreview
 import ie.setu.vegi.ui.screens.add.AddScreen
 import ie.setu.vegi.ui.screens.details.DetailsScreen
 import ie.setu.vegi.ui.screens.history.HistoryScreen
@@ -34,8 +31,8 @@ fun NavHostProvider(
             //call our 'History' Screen Here
             HistoryScreen(modifier = modifier,
                 onClickDetails = {
-                    productId : Int ->
-                    navController.navigateToDonationDetails((productId))
+                    barcode : String ->
+                    navController.navigateToDonationDetails((barcode))
                 })
         }
         composable(route = Scan.route) {
@@ -56,7 +53,7 @@ fun NavHostProvider(
     }
 }
 
-private fun NavHostController.navigateToDonationDetails(donationId: Int) {
-    this.navigate("details/$donationId")
+private fun NavHostController.navigateToDonationDetails(barcode: String) {
+    this.navigate("details/$barcode")
 }
 

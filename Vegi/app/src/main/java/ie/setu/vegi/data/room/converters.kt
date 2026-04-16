@@ -2,6 +2,7 @@ package ie.setu.vegi.data.room
 
 import android.net.Uri
 import androidx.room.TypeConverter
+import ie.setu.vegi.data.models.VegStatus
 import java.util.Date
 
 class Converters {
@@ -14,6 +15,12 @@ class Converters {
     fun dateToTimestamp(date: Date?): Long? {
         return date?.time?.toLong()
     }
+
+    @TypeConverter
+    fun fromVegStatus(value: VegStatus): String = value.name
+
+    @TypeConverter
+    fun toVegStatus(value: String): VegStatus = VegStatus.valueOf(value)
 
     @TypeConverter
     fun fromUri(uri: Uri?): String? {

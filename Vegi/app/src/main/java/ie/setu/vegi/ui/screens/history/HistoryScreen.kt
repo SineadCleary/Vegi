@@ -18,8 +18,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import ie.setu.vegi.R
-import ie.setu.vegi.data.ProductModel
-import ie.setu.vegi.data.fakeProducts
+import ie.setu.vegi.data.models.ProductModel
+import ie.setu.vegi.data.models.fakeProducts
 import ie.setu.vegi.ui.components.general.Centre
 import ie.setu.vegi.ui.components.history.FilterChipRow
 import ie.setu.vegi.ui.components.history.ProductCardList
@@ -27,7 +27,7 @@ import ie.setu.vegi.ui.theme.VegiTheme
 
 @Composable
 fun HistoryScreen(modifier: Modifier = Modifier,
-                  onClickDetails: (Int) -> Unit,
+                  onClickDetails: (String) -> Unit,
                   historyViewModel: HistoryViewModel = hiltViewModel()
 ) {
     val products = historyViewModel.uiProducts.collectAsState().value
@@ -62,37 +62,37 @@ fun HistoryScreen(modifier: Modifier = Modifier,
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun HistoryScreenPreview() {
-    VegiTheme() {
-        PreviewHistoryScreen( modifier = Modifier,
-            products = fakeProducts.toMutableStateList()
-//            products = emptyProducts.toMutableStateList()
-        )
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun HistoryScreenPreview() {
+//    VegiTheme() {
+//        PreviewHistoryScreen( modifier = Modifier,
+//            products = fakeProducts.toMutableStateList()
+////            products = emptyProducts.toMutableStateList()
+//        )
+//    }
+//}
 
-@Composable
-fun PreviewHistoryScreen(modifier: Modifier = Modifier,
-                         products: SnapshotStateList<ProductModel>
-) {
-    Column {
-        Column(
-            modifier = modifier.padding(
-                start = 10.dp,
-                end = 10.dp
-            ),
-        ) {
-            FilterChipRow(
-                selectedFilters = setOf("Vegan", "Vegetarian"),
-                onFilterChanged = { _, _  -> }
-            )
-            ProductCardList(
-                products = products,
-                onDeleteProduct = {}
-            ) {}
-        }
-    }
-}
+//@Composable
+//fun PreviewHistoryScreen(modifier: Modifier = Modifier,
+//                         products: SnapshotStateList<ProductModel>
+//) {
+//    Column {
+//        Column(
+//            modifier = modifier.padding(
+//                start = 10.dp,
+//                end = 10.dp
+//            ),
+//        ) {
+//            FilterChipRow(
+//                selectedFilters = setOf("Vegan", "Vegetarian"),
+//                onFilterChanged = { _, _  -> }
+//            )
+//            ProductCardList(
+//                products = products,
+//                onDeleteProduct = {}
+//            ) {}
+//        }
+//    }
+//}
 
