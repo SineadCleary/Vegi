@@ -1,5 +1,6 @@
 package ie.setu.vegi.ui.screens.details
 
+import android.Manifest
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

@@ -3,6 +3,7 @@ package ie.setu.vegi.navigation
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.CameraAlt
 import androidx.compose.material.icons.filled.Details
 import androidx.compose.material.icons.filled.Eco
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -37,6 +38,12 @@ object Details : AppDestination {
     )
 }
 
+object Scan : AppDestination {
+    override val icon = Icons.Filled.CameraAlt
+    override val label = "Scan"
+    override val route = "scan"
+}
 
-val bottomAppBarDestinations = listOf(History, Add)
-val allDestinations = listOf(History, Add, Details)
+
+val bottomAppBarDestinations = listOf(History, Add, Scan)
+val allDestinations = listOf(History, Add, Details, Scan)

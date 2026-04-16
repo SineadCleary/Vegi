@@ -73,6 +73,14 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
 
+    // CameraX
+    implementation(libs.androidx.camera.camera2)
+    implementation(libs.androidx.camera.lifecycle)
+    implementation(libs.androidx.camera.view)
+
+    // ML Kit barcode scanning
+    implementation(libs.barcode.scanning)
+
     implementation(libs.core.splashscreen)
 
     testImplementation(libs.junit)

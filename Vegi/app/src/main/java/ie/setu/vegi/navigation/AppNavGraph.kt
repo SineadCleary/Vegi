@@ -9,9 +9,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import ie.setu.vegi.data.ProductModel
+import ie.setu.vegi.ui.components.camera.CameraPreview
 import ie.setu.vegi.ui.screens.add.AddScreen
 import ie.setu.vegi.ui.screens.details.DetailsScreen
 import ie.setu.vegi.ui.screens.history.HistoryScreen
+import ie.setu.vegi.ui.screens.scan.ScanScreen
 
 @Composable
 fun NavHostProvider(
@@ -35,6 +37,10 @@ fun NavHostProvider(
                     productId : Int ->
                     navController.navigateToDonationDetails((productId))
                 })
+        }
+        composable(route = Scan.route) {
+            //call our 'Scan' Screen Here
+            ScanScreen()
         }
         composable(
             route = Details.route,
