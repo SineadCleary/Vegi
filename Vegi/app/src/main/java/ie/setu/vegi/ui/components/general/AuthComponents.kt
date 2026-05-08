@@ -138,7 +138,7 @@ fun NormalTextComponent(value: String) {
             fontSize = 24.sp,
             fontWeight = FontWeight.Normal,
             fontStyle = FontStyle.Normal
-        ), color = colorResource(id = R.color.black),
+        ), color = MaterialTheme.colorScheme.onBackground,
         textAlign = TextAlign.Center
     )
 }
@@ -154,7 +154,7 @@ fun HeadingTextComponent(value: String) {
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold,
             fontStyle = FontStyle.Normal
-        ), color = colorResource(id = R.color.black),
+        ), color = MaterialTheme.colorScheme.onBackground,
         textAlign = TextAlign.Center
     )
 }
@@ -345,7 +345,7 @@ fun ClickableTextComponent(value: String, onTextSelected: (String) -> Unit) {
         }
     }
 
-    ClickableText(text = annotatedString, onClick = { offset ->
+    ClickableText(text = annotatedString, style = TextStyle(color = MaterialTheme.colorScheme.onBackground), onClick = { offset ->
 
         annotatedString.getStringAnnotations(offset, offset)
             .firstOrNull()?.also { span ->

@@ -1,7 +1,6 @@
 package ie.setu.vegi.ui.screens.register
 
 import android.widget.Toast
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -12,7 +11,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -51,7 +49,6 @@ fun RegisterScreen(
         Surface(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.White)
                 .padding(28.dp)
         ) {
             Column(modifier = Modifier
@@ -153,7 +150,6 @@ fun PreviewRegisterScreen() {
         Surface(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.White)
                 .padding(28.dp)
         ) {
             Column(
