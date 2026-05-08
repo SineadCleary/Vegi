@@ -107,7 +107,7 @@ private fun ProductCardContent(
             ) {
                 val painter =
                 if (imagePath!!.isNotEmpty()) {
-                    rememberAsyncImagePainter(File(imagePath))
+                    rememberAsyncImagePainter(imagePath)
                 } else {
                     painterResource(R.drawable.placeholder_image)
                 }

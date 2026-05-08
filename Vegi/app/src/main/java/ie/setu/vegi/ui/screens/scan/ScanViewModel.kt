@@ -1,20 +1,22 @@
 package ie.setu.vegi.ui.screens.scan
 
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ie.setu.vegi.data.api.RetrofitRepository
 import ie.setu.vegi.data.models.ProductModel
-import kotlinx.coroutines.flow.MutableStateFlow
+import ie.setu.vegi.data.repository.RoomRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class ScanViewModel @Inject
-constructor(private val repository: RetrofitRepository) : ViewModel(){
+constructor(
+    private val retrofitRepository: RetrofitRepository,
+    private val roomRepository: RoomRepository
+) : ViewModel(){
     val _product = mutableStateOf<ProductModel?>(null)
 
     var isErr = mutableStateOf(false)
@@ -25,7 +27,7 @@ constructor(private val repository: RetrofitRepository) : ViewModel(){
         viewModelScope.launch {
             try {
                 isLoading.value = true
-                val result = repository.get(barcode)
+                val result = retrofitRepository.get(barcode)
 
                 if (result == null){
                     isErr.value = true
@@ -35,6 +37,18 @@ constructor(private val repository: RetrofitRepository) : ViewModel(){
                 else {
                     _product.value = result
                     isErr.value = false
+
+                    insert(result)
+                    Timber.i("Product info : $_product")
+//                    Timber.i("Product list info : ${products.toList()}")
+                    // Snackbar
+//                    scope.launch {
+//                        snackbarHostState.showSnackbar(
+//                            message = "Product added",
+//                            actionLabel = "Dismiss",
+//                            duration = SnackbarDuration.Short
+//                        )
+//                    }
                 }
             }
             catch(e: Exception) {
@@ -50,5 +64,10 @@ constructor(private val repository: RetrofitRepository) : ViewModel(){
 
     fun hideError(){
         isErr.value = false
+    }
+
+    fun insert(products: ProductModel)
+            = viewModelScope.launch {
+        roomRepository.insert(products)
     }
 }
