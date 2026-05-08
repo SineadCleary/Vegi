@@ -7,6 +7,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import ie.setu.vegi.data.api.RetrofitRepository
 import ie.setu.vegi.data.models.ProductModel
 import ie.setu.vegi.data.repository.RoomRepository
+import ie.setu.vegi.firebase.services.AuthService
+import ie.setu.vegi.firebase.services.FirestoreService
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -15,7 +17,8 @@ import javax.inject.Inject
 class ScanViewModel @Inject
 constructor(
     private val retrofitRepository: RetrofitRepository,
-    private val roomRepository: RoomRepository
+    private val firestoreRepository: FirestoreService,
+    private val authService: AuthService
 ) : ViewModel(){
     val _product = mutableStateOf<ProductModel?>(null)
 
@@ -39,7 +42,7 @@ constructor(
                     isErr.value = false
 
                     insert(result)
-                    Timber.i("Product info : $_product")
+                    Timber.i("Product info : $result")
                 }
             }
             catch(e: Exception) {
@@ -57,8 +60,24 @@ constructor(
         isErr.value = false
     }
 
-    fun insert(products: ProductModel)
-            = viewModelScope.launch {
-        roomRepository.insert(products)
+    fun insert(product: ProductModel) = viewModelScope.launch {
+
+        try {
+
+            isLoading.value = true
+
+            firestoreRepository.insert(authService.email!!, product)
+
+        } catch (e: Exception) {
+
+            isErr.value = true
+            error.value = e
+
+            Timber.e(e)
+
+        } finally {
+
+            isLoading.value = false
+        }
     }
 }

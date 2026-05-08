@@ -1,14 +1,17 @@
 package ie.setu.vegi.firebase.services
 
+import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseUser
 import ie.setu.vegi.firebase.auth.Response
 
 typealias FirebaseSignInResponse = Response<FirebaseUser>
+typealias SignInWithGoogleResponse = Response<Boolean>
 
 interface AuthService {
     val currentUserId: String
     val currentUser: FirebaseUser?
     val isUserAuthenticatedInFirebase: Boolean
+    val email: String?
 
     suspend fun authenticateUser(email: String, password: String)
                 : FirebaseSignInResponse
@@ -16,6 +19,8 @@ interface AuthService {
                 : FirebaseSignInResponse
     suspend fun signOut()
 
+    suspend fun firebaseSignInWithGoogle(googleCredential: AuthCredential): SignInWithGoogleResponse
+    suspend fun authenticateGoogleUser(googleIdToken: String): ie.setu.vegi.firebase.services.FirebaseSignInResponse
 }
 
 

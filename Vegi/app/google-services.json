@@ -12,7 +12,20 @@
           "package_name": "ie.setu.vegi"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "815947931257-8gtcifb21u4pocudf1aticdm9k8igp57.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ie.setu.vegi",
+            "certificate_hash": "b0a6c307c19052c222168c5259a0299440f441de"
+          }
+        },
+        {
+          "client_id": "815947931257-sef5qosh2u7kamh2725nsv190o3v2nsl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAcU_VrqN7nGlNuRBtlsHOT6R-lnUmEFR4"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "815947931257-sef5qosh2u7kamh2725nsv190o3v2nsl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

@@ -2,17 +2,19 @@ package ie.setu.vegi.data.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.firebase.firestore.DocumentId
 import java.util.Date
 
 @Entity
 data class ProductModel(
-    @PrimaryKey
-    val barcode: String = "",
+    @DocumentId val _id: String = "N/A",
+    @PrimaryKey val barcode: String = "",
     val name: String = "Name",
     val brand: String = "Brand",
     val imageUrl: String = "",
     val vegStatus: VegStatus = VegStatus.UNKNOWN,
-    val dateAdded: Date = Date()
+    val dateAdded: Date = Date(),
+    var email: String = "joe@bloggs.com",
 )
 
 val fakeProducts = List(30) { i ->

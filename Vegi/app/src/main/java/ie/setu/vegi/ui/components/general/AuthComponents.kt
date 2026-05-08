@@ -58,6 +58,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ie.setu.vegi.R
+import ie.setu.vegi.data.rules.Constants.SIGN_IN_WITH_GOOGLE
 import ie.setu.vegi.ui.theme.*
 
 @Preview
@@ -69,6 +70,60 @@ fun DonationCardPreview() {
             HeadingLogoComponent()
             CheckboxComponent(value = "My Text", onTextSelected = {}, onCheckedChange ={} )
         }
+    }
+}
+
+@Composable
+fun GoogleSignInButtonComponent(onButtonClicked: () -> Unit) {
+    Button(
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(48.dp),
+        onClick = {
+            onButtonClicked.invoke()
+        },
+        contentPadding = PaddingValues(),
+        colors = ButtonDefaults.buttonColors(Color.Transparent),
+        shape = RoundedCornerShape(50.dp),
+        //enabled = isEnabled
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(48.dp)
+                .background(
+                    brush = Brush.horizontalGradient(
+                        colors = listOf(
+                            gStartGradientColor,
+                            gEndGradientColor,
+                        )
+                    ),
+                    shape = RoundedCornerShape(50.dp)
+                ),
+            contentAlignment = Alignment.Center
+        ) {
+            Row {
+                Column {
+
+                    Image(
+                        modifier = Modifier.padding(end = 40.dp),
+                        painter = painterResource(
+                            id = R.drawable.ic_google_logo
+                        ),
+                        contentDescription = null
+                    )
+                }
+                Text(
+                    text = SIGN_IN_WITH_GOOGLE,
+                    fontSize = 18.sp,
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                    fontStyle = FontStyle.Italic,
+                    modifier = Modifier.padding(end = 40.dp)
+                )
+            }
+        }
+
     }
 }
 

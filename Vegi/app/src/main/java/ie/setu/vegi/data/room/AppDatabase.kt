@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import ie.setu.vegi.data.models.ProductModel
 
-@Database(entities = [ProductModel::class], version = 3)
+@Database(entities = [ProductModel::class], version = 6)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun getProductDAO(): ProductDAO

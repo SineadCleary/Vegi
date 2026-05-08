@@ -63,6 +63,7 @@ dependencies {
     //Hilt
     implementation(libs.hilt.android)
     implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
     ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
 
@@ -87,6 +88,13 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.gson)
+
+    //Google Services
+    implementation(libs.play.services.auth)
+    implementation(libs.googleid)
+
+    implementation(libs.hilt.android)
+    implementation(libs.firebase.storage)
 
     implementation(libs.core.splashscreen)
 

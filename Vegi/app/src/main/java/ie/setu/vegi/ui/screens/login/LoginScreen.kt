@@ -34,6 +34,7 @@ import ie.setu.vegi.firebase.auth.Response
 import ie.setu.vegi.navigation.Home
 import ie.setu.vegi.navigation.Login
 import ie.setu.vegi.ui.components.general.ButtonComponent
+import ie.setu.vegi.ui.components.general.GoogleSignInButtonComponent
 import ie.setu.vegi.ui.components.general.HeadingLogoComponent
 import ie.setu.vegi.ui.components.general.HeadingTextComponent
 import ie.setu.vegi.ui.components.general.MyTextFieldComponent
@@ -103,6 +104,13 @@ fun LoginScreen(
                     isEnabled = loginViewModel.allValidationsPassed.value
                 )
                 isEnabled = loginViewModel.allValidationsPassed.value
+
+                // Google Button
+                Spacer(modifier = Modifier.height(10.dp))
+                val context = LocalContext.current
+                GoogleSignInButtonComponent {
+                    loginViewModel.signInWithGoogleCredentials(context)
+                }
             }
         }
     }

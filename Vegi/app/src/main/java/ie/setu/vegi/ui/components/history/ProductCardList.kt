@@ -44,7 +44,7 @@ internal fun ProductCardList(
             }
         items(
             items = filteredProducts,
-            key = { product -> product.barcode }
+            key = { product -> product._id }
         ) { product ->
             ProductCard(
                 vegStaus = product.vegStatus.toString(),
@@ -53,7 +53,7 @@ internal fun ProductCardList(
                 imagePath = product.imageUrl,
                 dateCreated = DateFormat.getDateTimeInstance().format(product.dateAdded),
                 onClickDelete = { onDeleteProduct(product) },
-                onClickDetails = { onClickDetails(product.barcode) }
+                onClickDetails = { onClickDetails(product._id) }
             )
         }
     }

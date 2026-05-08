@@ -1,16 +1,25 @@
 package ie.setu.vegi.firebase.auth
 
+import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.UserProfileChangeRequest
 import ie.setu.vegi.firebase.services.AuthService
 import ie.setu.vegi.firebase.services.FirebaseSignInResponse
+import ie.setu.vegi.firebase.services.SignInWithGoogleResponse
+import ie.setu.vegi.firebase.services.StorageService
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class AuthRepository
-@Inject constructor(private val firebaseAuth: FirebaseAuth)
+@Inject constructor(private val firebaseAuth: FirebaseAuth,
+                    private val storageService: StorageService
+)
     : AuthService {
+
+    override val email: String?
+        get() = firebaseAuth.currentUser?.email
 
     override val currentUserId: String
         get() = firebaseAuth.currentUser?.uid.orEmpty()
@@ -44,6 +53,32 @@ class AuthRepository
 
     override suspend fun signOut() {
         firebaseAuth.signOut()
+    }
+
+    override suspend fun firebaseSignInWithGoogle(
+        googleCredential: AuthCredential
+    ): SignInWithGoogleResponse {
+        return try {
+            val authResult = firebaseAuth.signInWithCredential(googleCredential).await()
+            val isNewUser = authResult.additionalUserInfo?.isNewUser ?: false
+            if (isNewUser) {
+                //   addUserToFirestore()
+            }
+            Response.Success(true)
+        } catch (e: Exception) {
+            Response.Failure(e)
+        }
+    }
+
+    override suspend fun authenticateGoogleUser(googleIdToken: String) : FirebaseSignInResponse {
+        return try {
+            val firebaseCredential = GoogleAuthProvider.getCredential(googleIdToken, null)
+            val result = firebaseAuth.signInWithCredential(firebaseCredential).await()
+            Response.Success(result.user!!)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Response.Failure(e)
+        }
     }
 
 }

@@ -5,15 +5,18 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ie.setu.vegi.data.models.ProductModel
 import ie.setu.vegi.data.repository.RoomRepository
+import ie.setu.vegi.firebase.services.AuthService
+import ie.setu.vegi.firebase.services.FirestoreService
 import jakarta.inject.Inject
 import kotlinx.coroutines.launch
 
 @HiltViewModel
 class AddViewModel @Inject
-constructor(private val repository: RoomRepository) : ViewModel() {
+constructor(private val repository: FirestoreService,
+            private val authService: AuthService) : ViewModel() {
 
-    fun insert(products: ProductModel)
+    fun insert(product: ProductModel)
             = viewModelScope.launch {
-        repository.insert(products)
+        repository.insert(authService.email!!,product)
     }
 }

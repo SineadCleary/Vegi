@@ -21,6 +21,8 @@ import ie.setu.vegi.R
 import ie.setu.vegi.data.models.ProductModel
 import ie.setu.vegi.data.models.fakeProducts
 import ie.setu.vegi.ui.components.general.Centre
+import ie.setu.vegi.ui.components.general.ShowError
+import ie.setu.vegi.ui.components.general.ShowLoader
 import ie.setu.vegi.ui.components.history.FilterChipRow
 import ie.setu.vegi.ui.components.history.ProductCardList
 import ie.setu.vegi.ui.theme.VegiTheme
@@ -31,7 +33,11 @@ fun HistoryScreen(modifier: Modifier = Modifier,
                   historyViewModel: HistoryViewModel = hiltViewModel()
 ) {
     val products = historyViewModel.uiProducts.collectAsState().value
-    if (products.isEmpty()){
+    val isError = historyViewModel.iserror.value
+    val error = historyViewModel.error.value
+    val isLoading = historyViewModel.isloading.value
+
+    if (products.isEmpty() && !isError){
         Centre(Modifier.fillMaxSize()) {
             Text(color = MaterialTheme.colorScheme.secondary,
                 fontWeight = FontWeight.Bold,
@@ -49,14 +55,22 @@ fun HistoryScreen(modifier: Modifier = Modifier,
                     end = 10.dp
                 ),
             ) {
-                ProductCardList(
-                    products = products.reversed(),
-                    onClickDetails = onClickDetails,
-                    onDeleteProduct = {
-                        product: ProductModel
-                        -> historyViewModel.deleteProduct(product)
-                    }
-                )
+                if(isLoading) ShowLoader("Loading Donations...")
+                if (!isError) {
+                    ProductCardList(
+                        products = products.reversed(),
+                        onClickDetails = onClickDetails,
+                        onDeleteProduct = { product: ProductModel
+                            ->
+                            historyViewModel.deleteProduct(product)
+                        }
+                    )
+                }
+                if (isError) {
+                    ShowError(headline = error.message!! + " error...",
+                        subtitle = error.toString(),
+                        onClick = { historyViewModel.getProducts() })
+                }
             }
         }
     }
