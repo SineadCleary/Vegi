@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "815947931257",
+    "project_id": "vegi-e3e27",
+    "storage_bucket": "vegi-e3e27.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:815947931257:android:d5ff84ff26e7563b7d3ea8",
+        "android_client_info": {
+          "package_name": "ie.setu.vegi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcU_VrqN7nGlNuRBtlsHOT6R-lnUmEFR4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

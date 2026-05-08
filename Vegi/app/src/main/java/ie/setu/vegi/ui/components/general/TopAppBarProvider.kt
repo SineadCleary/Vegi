@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import ie.setu.vegi.navigation.Add
 import ie.setu.vegi.navigation.AppDestination
 import ie.setu.vegi.ui.theme.VegiTheme
@@ -22,8 +23,11 @@ import ie.setu.vegi.ui.theme.VegiTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopAppBarProvider(
+    navController: NavController,
     currentScreen: AppDestination,
     canNavigateBack: Boolean,
+    email: String,
+    name: String,
     navigateUp: () -> Unit = {})
 {
     TopAppBar(
@@ -56,10 +60,10 @@ enum class MenuItem {
     Add, History
 }
 
-@Preview(showBackground = true)
-@Composable
-fun TopAppBarPreview() {
-    VegiTheme {
-        TopAppBarProvider(Add, true)
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun TopAppBarPreview() {
+//    VegiTheme {
+//        TopAppBarProvider(Add, true)
+//    }
+//}

@@ -40,15 +40,6 @@ constructor(
 
                     insert(result)
                     Timber.i("Product info : $_product")
-//                    Timber.i("Product list info : ${products.toList()}")
-                    // Snackbar
-//                    scope.launch {
-//                        snackbarHostState.showSnackbar(
-//                            message = "Product added",
-//                            actionLabel = "Dismiss",
-//                            duration = SnackbarDuration.Short
-//                        )
-//                    }
                 }
             }
             catch(e: Exception) {
