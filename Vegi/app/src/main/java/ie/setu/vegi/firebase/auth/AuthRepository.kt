@@ -1,5 +1,6 @@
 package ie.setu.vegi.firebase.auth
 
+import android.net.Uri
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -10,6 +11,7 @@ import ie.setu.vegi.firebase.services.FirebaseSignInResponse
 import ie.setu.vegi.firebase.services.SignInWithGoogleResponse
 import ie.setu.vegi.firebase.services.StorageService
 import kotlinx.coroutines.tasks.await
+import timber.log.Timber
 import javax.inject.Inject
 
 class AuthRepository
@@ -30,6 +32,9 @@ class AuthRepository
     override val isUserAuthenticatedInFirebase : Boolean
         get() = firebaseAuth.currentUser != null
 
+    override val customPhotoUri: Uri?
+        get() = firebaseAuth.currentUser!!.photoUrl
+
     override suspend fun authenticateUser(email: String, password: String): FirebaseSignInResponse {
         return try {
                 val result = firebaseAuth.signInWithEmailAndPassword(email, password).await()
@@ -42,9 +47,28 @@ class AuthRepository
 
     override suspend fun createUser(name: String, email: String, password: String): FirebaseSignInResponse {
         return try {
+            val uri = Uri.parse("android.resource://ie.setu.vegi/drawable/placeholder_image")
             val result = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
-            result.user?.updateProfile(UserProfileChangeRequest.Builder().setDisplayName(name).build())?.await()
+            result.user?.updateProfile(UserProfileChangeRequest
+                .Builder()
+                .setDisplayName(name)
+                .setPhotoUri(uploadCustomPhotoUri(uri))
+                .build())?.await()
             return Response.Success(result.user!!)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Response.Failure(e)
+        }
+    }
+
+    override suspend fun updatePhoto(uri: Uri) : FirebaseSignInResponse {
+        return try {
+            currentUser!!.updateProfile(UserProfileChangeRequest
+                .Builder()
+                .setPhotoUri(uploadCustomPhotoUri(uri))
+                .build()).await()
+            currentUser!!.reload().await()
+            return Response.Success(currentUser!!)
         } catch (e: Exception) {
             e.printStackTrace()
             Response.Failure(e)
@@ -80,5 +104,19 @@ class AuthRepository
             Response.Failure(e)
         }
     }
+
+    private suspend fun uploadCustomPhotoUri(uri: Uri) : Uri {
+        if (uri.toString().isNotEmpty()) {
+            val urlTask = storageService.uploadFile(uri = uri, "images")
+            val url = urlTask.addOnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Timber.e("task not successful: ${task.exception}")
+                }
+            }.await()
+            return url
+        }
+        return Uri.EMPTY
+    }
+
 
 }
