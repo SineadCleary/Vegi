@@ -13,6 +13,7 @@ import ie.setu.vegi.ui.screens.login.LoginScreen
 import ie.setu.vegi.ui.screens.profile.ProfileScreen
 import ie.setu.vegi.ui.screens.register.RegisterScreen
 import ie.setu.vegi.ui.screens.scan.ScanScreen
+import ie.setu.vegi.ui.screens.search.SearchScreen
 
 @Composable
 fun NavHostProvider(
@@ -32,7 +33,11 @@ fun NavHostProvider(
                 onClickDetails = {
                     barcode : String ->
                     navController.navigateToDonationDetails((barcode))
-                })
+                },
+                onClickScan = {
+                    navController.navigate("Scan")
+                }
+            )
         }
         composable(route = Scan.route) {
             //call our 'Scan' Screen Here
@@ -65,6 +70,17 @@ fun NavHostProvider(
                         popUpTo(Home.route) { inclusive = true }
                     }
                 },
+            )
+        }
+        composable(route = Search.route) {
+            SearchScreen(
+                onClickDetails = {
+                        barcode : String ->
+                    navController.navigateToDonationDetails((barcode))
+                },
+                onClickScan = {
+                    navController.navigate("Scan")
+                }
             )
         }
 

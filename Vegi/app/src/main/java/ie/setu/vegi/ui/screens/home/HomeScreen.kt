@@ -62,11 +62,13 @@ fun HomeScreen(modifier: Modifier = Modifier,
             )
         },
         bottomBar = {
-            BottomAppBarProvider(
-                navController,
-                currentScreen = currentBottomScreen,
-                userDestinations
-            )
+            if (currentNavBackStackEntry?.destination?.route != "scan") {
+                BottomAppBarProvider(
+                    navController,
+                    currentScreen = currentBottomScreen,
+                    userDestinations
+                )
+            }
         }
     )
 }

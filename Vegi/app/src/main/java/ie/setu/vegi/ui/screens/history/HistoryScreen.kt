@@ -1,5 +1,6 @@
 package ie.setu.vegi.ui.screens.history
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -11,31 +12,29 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.snapshots.SnapshotStateList
-import androidx.compose.runtime.toMutableStateList
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import ie.setu.vegi.R
 import ie.setu.vegi.data.models.ProductModel
 import ie.setu.vegi.data.models.VegStatus
-import ie.setu.vegi.data.models.fakeProducts
 import ie.setu.vegi.ui.components.general.Centre
+import ie.setu.vegi.ui.components.general.ScanFloatingActionButton
 import ie.setu.vegi.ui.components.general.ShowError
 import ie.setu.vegi.ui.components.general.ShowLoader
 import ie.setu.vegi.ui.components.history.FilterChipRow
 import ie.setu.vegi.ui.components.history.ProductCardList
-import ie.setu.vegi.ui.theme.VegiTheme
 import kotlin.collections.plus
 
 @Composable
 fun HistoryScreen(modifier: Modifier = Modifier,
                   onClickDetails: (String) -> Unit,
+                  onClickScan: () -> Unit,
                   historyViewModel: HistoryViewModel = hiltViewModel()
 ) {
     val products = historyViewModel.uiProducts.collectAsState().value
@@ -55,14 +54,14 @@ fun HistoryScreen(modifier: Modifier = Modifier,
         }
     }
     else {
-        Column {
+        Box(modifier = Modifier.fillMaxSize()) {
             Column(
                 modifier = modifier.padding(
                     start = 10.dp,
                     end = 10.dp
                 ),
             ) {
-                if(isLoading) ShowLoader("Loading Donations...")
+                if(isLoading) ShowLoader("Loading products...")
                 if (!isError) {
                     FilterChipRow(
                         selectedFilters = filters,
@@ -86,41 +85,14 @@ fun HistoryScreen(modifier: Modifier = Modifier,
                         onClick = { historyViewModel.getProducts() })
                 }
             }
+            ScanFloatingActionButton(
+                onClick = onClickScan,
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(16.dp)
+            )
         }
     }
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//fun HistoryScreenPreview() {
-//    VegiTheme() {
-//        PreviewHistoryScreen( modifier = Modifier,
-//            products = fakeProducts.toMutableStateList()
-////            products = emptyProducts.toMutableStateList()
-//        )
-//    }
-//}
-
-//@Composable
-//fun PreviewHistoryScreen(modifier: Modifier = Modifier,
-//                         products: SnapshotStateList<ProductModel>
-//) {
-//    Column {
-//        Column(
-//            modifier = modifier.padding(
-//                start = 10.dp,
-//                end = 10.dp
-//            ),
-//        ) {
-//            FilterChipRow(
-//                selectedFilters = setOf("Vegan", "Vegetarian"),
-//                onFilterChanged = { _, _  -> }
-//            )
-//            ProductCardList(
-//                products = products,
-//                onDeleteProduct = {}
-//            ) {}
-//        }
-//    }
-//}
 

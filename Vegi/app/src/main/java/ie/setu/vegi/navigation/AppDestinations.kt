@@ -3,13 +3,16 @@ package ie.setu.vegi.navigation
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.automirrored.filled.Login
+import androidx.compose.material.icons.automirrored.filled.ManageSearch
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.CameraAlt
 import androidx.compose.material.icons.filled.Details
 import androidx.compose.material.icons.filled.Eco
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.ManageSearch
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
@@ -60,6 +63,12 @@ object Profile : AppDestination {
     override val route = "Profile"
 }
 
+object Search : AppDestination {
+    override val icon = Icons.AutoMirrored.Filled.ManageSearch
+    override val label = "Search"
+    override val route = "Search"
+}
+
 object Login : AppDestination {
     override val icon = Icons.AutoMirrored.Filled.Login
     override val label = "Login"
@@ -73,6 +82,6 @@ object Register : AppDestination {
 }
 
 
-val bottomAppBarDestinations = listOf(History, Scan, Profile)
+val bottomAppBarDestinations = listOf(History, Search, Profile)
 val userSignedOutDestinations = listOf(Login, Register)
-val allDestinations = listOf(History, Scan, Home, Profile, Login, Register)
+val allDestinations = listOf(History, Scan, Home, Profile, Login, Register, Search)
