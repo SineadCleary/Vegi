@@ -21,20 +21,13 @@ import java.text.DateFormat
 @Composable
 internal fun ProductCardList(
     products: List<ProductModel>,
+    filters: Set<VegStatus>,
     modifier: Modifier = Modifier,
     onDeleteProduct: (ProductModel) -> Unit,
     onClickDetails: (String) -> Unit
 ) {
-    var filters by remember { mutableStateOf(setOf<VegStatus>()) }
+//    var filters by remember { mutableStateOf(setOf<VegStatus>()) }
     LazyColumn {
-        item {
-            FilterChipRow(
-                selectedFilters = filters,
-                onFilterChanged = { filter, isSelected ->
-                    filters = if (isSelected) filters + filter else filters - filter
-                }
-            )
-        }
         val filteredProducts =
             if (filters.isEmpty()) {
                 products
@@ -43,8 +36,9 @@ internal fun ProductCardList(
                     filters.contains(product.vegStatus)
                 }
             }
+        val sortedProducts = filteredProducts.sortedByDescending { it.dateAdded }
         items(
-            items = filteredProducts,
+            items = sortedProducts,
             key = { product -> product._id }
         ) { product ->
             ProductCard(
@@ -72,6 +66,7 @@ fun ProductCardListPreview() {
         ProductCardList(
             fakeProducts.toMutableStateList(),
             modifier = Modifier,
+            filters = emptySet<VegStatus>(),
             onDeleteProduct = {},
         ) { }
     }

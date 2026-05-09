@@ -7,6 +7,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Modifier
@@ -19,6 +23,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import ie.setu.vegi.R
 import ie.setu.vegi.data.models.ProductModel
+import ie.setu.vegi.data.models.VegStatus
 import ie.setu.vegi.data.models.fakeProducts
 import ie.setu.vegi.ui.components.general.Centre
 import ie.setu.vegi.ui.components.general.ShowError
@@ -26,6 +31,7 @@ import ie.setu.vegi.ui.components.general.ShowLoader
 import ie.setu.vegi.ui.components.history.FilterChipRow
 import ie.setu.vegi.ui.components.history.ProductCardList
 import ie.setu.vegi.ui.theme.VegiTheme
+import kotlin.collections.plus
 
 @Composable
 fun HistoryScreen(modifier: Modifier = Modifier,
@@ -36,6 +42,7 @@ fun HistoryScreen(modifier: Modifier = Modifier,
     val isError = historyViewModel.iserror.value
     val error = historyViewModel.error.value
     val isLoading = historyViewModel.isloading.value
+    var filters by remember { mutableStateOf(setOf<VegStatus>()) }
 
     if (products.isEmpty() && !isError){
         Centre(Modifier.fillMaxSize()) {
@@ -57,9 +64,16 @@ fun HistoryScreen(modifier: Modifier = Modifier,
             ) {
                 if(isLoading) ShowLoader("Loading Donations...")
                 if (!isError) {
+                    FilterChipRow(
+                        selectedFilters = filters,
+                        onFilterChanged = { filter, isSelected ->
+                            filters = if (isSelected) filters + filter else filters - filter
+                        }
+                    )
                     ProductCardList(
                         products = products,
                         onClickDetails = onClickDetails,
+                        filters = filters,
                         onDeleteProduct = { product: ProductModel
                             ->
                             historyViewModel.deleteProduct(product)

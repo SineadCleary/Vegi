@@ -65,9 +65,10 @@ constructor(
 
             isLoading.value = true
 
-            if (firestoreRepository.getByBarcode(authService.email!!, product.barcode) == null)
+            val existing = firestoreRepository.getByBarcode(authService.email!!, product.barcode)
+            if (existing == null)
                 firestoreRepository.insert(authService.email!!, product)
-            else firestoreRepository.update(authService.email!!, product)
+            else firestoreRepository.update(authService.email!!, existing)
 
         } catch (e: Exception) {
 
