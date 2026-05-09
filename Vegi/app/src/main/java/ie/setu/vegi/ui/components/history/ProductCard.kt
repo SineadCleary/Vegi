@@ -14,7 +14,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Eco
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material.icons.filled.FilterVintage
@@ -45,7 +44,6 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import ie.setu.vegi.R
 import ie.setu.vegi.ui.theme.VegiTheme
-import java.io.File
 import java.text.DateFormat
 import java.util.Date
 
@@ -56,8 +54,8 @@ fun ProductCard(
     brand: String?,
     imagePath: String?,
     dateCreated: String,
-    onClickDelete: () -> Unit,
-    onClickDetails: () -> Unit
+    expandable: Boolean,
+    onClickDelete: () -> Unit
 ) {
     Card(
         colors = CardDefaults.cardColors(
@@ -72,8 +70,9 @@ fun ProductCard(
             brand,
             imagePath,
             dateCreated,
+            expandable,
             onClickDelete,
-            onClickDetails)
+            )
     }
 }
 
@@ -84,8 +83,8 @@ private fun ProductCardContent(
     brands: String?,
     imagePath: String?,
     dateCreated: String,
+    expandable: Boolean,
     onClickDelete: () -> Unit,
-    onClickDetails: () -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
     var showDeleteConfirmDialog by remember { mutableStateOf(false) }
@@ -171,15 +170,17 @@ private fun ProductCardContent(
                     )
                 }
             }
-            IconButton(onClick = { expanded = !expanded }) {
-                Icon(
-                    imageVector = if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
-                    contentDescription = if (expanded) {
-                        stringResource(R.string.showLess)
-                    } else {
-                        stringResource(R.string.showMore)
-                    }
-                )
+            if (expandable) {
+                IconButton(onClick = { expanded = !expanded }) {
+                    Icon(
+                        imageVector = if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
+                        contentDescription = if (expanded) {
+                            stringResource(R.string.showLess)
+                        } else {
+                            stringResource(R.string.showMore)
+                        }
+                    )
+                }
             }
         }
         if (expanded) {
@@ -190,9 +191,6 @@ private fun ProductCardContent(
                 horizontalArrangement = Arrangement.SpaceBetween) {
                     Text(modifier = Modifier.padding(vertical = 16.dp), text = "Added $dateCreated")
                     Row() {
-                        FilledTonalIconButton(onClick = onClickDetails) {
-                            Icon(Icons.Filled.Edit, "Edit Product")
-                        }
                         FilledTonalIconButton(onClick = {showDeleteConfirmDialog = true}) {
                             Icon(Icons.Filled.Delete, "Delete Product")
                         }
@@ -238,7 +236,8 @@ fun ProductCardPreview() {
             brand = "Bananananana",
             imagePath = "",
             dateCreated = DateFormat.getDateTimeInstance().format(Date()),
+            expandable = true,
             onClickDelete = { },
-        ) { }
+        )
     }
 }

@@ -73,6 +73,6 @@ object Register : AppDestination {
 }
 
 
-val bottomAppBarDestinations = listOf(History, Add, Scan, Profile)
+val bottomAppBarDestinations = listOf(History, Scan, Profile)
 val userSignedOutDestinations = listOf(Login, Register)
-val allDestinations = listOf(History, Add, Details, Scan, Home, Profile, Login, Register)
+val allDestinations = listOf(History, Scan, Home, Profile, Login, Register)

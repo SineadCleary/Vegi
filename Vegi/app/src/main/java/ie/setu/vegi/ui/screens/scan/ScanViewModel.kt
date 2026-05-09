@@ -65,10 +65,7 @@ constructor(
 
             isLoading.value = true
 
-            val existing = firestoreRepository.getByBarcode(authService.email!!, product.barcode)
-            if (existing == null)
-                firestoreRepository.insert(authService.email!!, product)
-            else firestoreRepository.update(authService.email!!, existing)
+            firestoreRepository.insert(authService.email!!, product) // insert uses set() to update if product already exists
 
         } catch (e: Exception) {
 

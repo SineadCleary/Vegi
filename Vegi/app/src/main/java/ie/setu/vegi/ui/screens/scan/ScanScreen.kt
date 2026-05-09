@@ -66,8 +66,8 @@ fun ScanScreen(modifier: Modifier = Modifier,
                     brand = product!!.brand,
                     imagePath = product!!.imageUrl,
                     dateCreated = Date().toString(),
+                    expandable = false,
                     onClickDelete = {},
-                    onClickDetails = {}
                 )
             }
         }

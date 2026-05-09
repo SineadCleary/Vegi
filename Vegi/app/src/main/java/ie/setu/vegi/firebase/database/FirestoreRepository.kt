@@ -46,7 +46,8 @@ class FirestoreRepository
         val productWithEmail = product.copy(email = email)
 
         firestore.collection(PRODUCT_COLLECTION)
-            .add(productWithEmail)
+            .document("${email}_${product.barcode}")
+            .set(productWithEmail)
             .await()
 
     }
@@ -58,7 +59,7 @@ class FirestoreRepository
             product.copy(dateAdded = Date())
 
         firestore.collection(PRODUCT_COLLECTION)
-            .document(product.barcode)
+            .document("${email}_${product.barcode}")
             .set(productWithModifiedDate).await()
     }
 

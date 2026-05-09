@@ -52,8 +52,8 @@ internal fun ProductCardList(
                 brand = product.brand,
                 imagePath = product.imageUrl,
                 dateCreated = DateFormat.getDateTimeInstance().format(product.dateAdded),
+                expandable = true,
                 onClickDelete = { onDeleteProduct(product) },
-                onClickDetails = { onClickDetails(product._id) }
             )
         }
     }
