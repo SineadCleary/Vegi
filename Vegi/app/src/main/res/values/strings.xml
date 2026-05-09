@@ -11,9 +11,11 @@
     <string name="showMore">Show More</string>
     <string name="productImage">Product Image</string>
     <string name="pickImage">Pick Image</string>
-    <string name="emptyList">No products added</string>
+    <string name="emptyList">No scanned products</string>
     <string name="confirm_delete">Confirm delete</string>
     <string name="confirm_delete_message">Are you sure you want to delete this product?</string>
+    <string name="confirm_clear">Confirm clear</string>
+    <string name="confirm_clear_message">Are you sure you want to clear scanned products history?</string>
 
     <string name="create_account">Create an Account </string>
     <string name="account_settings">Account Settings</string>
@@ -32,5 +34,5 @@
 
     <string name="forgot_password">Forgot your password</string>
     <string name="home">Home</string>
-    <string name="logout">Logout</string>
+    <string name="logout">Log out</string>
 </resources>

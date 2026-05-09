@@ -10,6 +10,7 @@ import ie.setu.vegi.firebase.services.FirestoreService
 import ie.setu.vegi.firebase.services.Product
 import ie.setu.vegi.firebase.services.Products
 import jakarta.inject.Inject
+import kotlinx.coroutines.flow.forEach
 import kotlinx.coroutines.tasks.await
 import java.util.Date
 
@@ -69,5 +70,21 @@ class FirestoreRepository
         firestore.collection(PRODUCT_COLLECTION)
             .document(productId)
             .delete().await()
+    }
+
+    override suspend fun deleteUserHistory(email: String)
+    {
+        val querySnapshot = firestore.collection(PRODUCT_COLLECTION)
+            .whereEqualTo("email", email)
+            .get()
+            .await()
+
+        val batch = firestore.batch()
+
+        for (document in querySnapshot.documents) {
+            batch.delete(document.reference)
+        }
+
+        batch.commit().await()
     }
 }

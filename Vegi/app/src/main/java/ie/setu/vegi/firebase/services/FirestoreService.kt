@@ -14,4 +14,5 @@ interface FirestoreService {
     suspend fun insert(email: String, product: Product)
     suspend fun update(email: String, product: Product)
     suspend fun delete(email: String, productId: String)
+    suspend fun deleteUserHistory(email: String)
 }
