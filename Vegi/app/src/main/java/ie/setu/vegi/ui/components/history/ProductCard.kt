@@ -123,18 +123,6 @@ private fun ProductCardContent(
                     .weight(1f)
                     .padding(4.dp)
             ) {
-                Text(
-                    text = name!!,
-                    style = MaterialTheme.typography.headlineSmall.copy(
-                        fontWeight = FontWeight.ExtraBold
-                    )
-                )
-                Text(
-                    text = brands!!,
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        fontWeight = FontWeight.ExtraBold
-                    )
-                )
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     when (vegStatus) {
                         "Vegan" -> {
@@ -169,6 +157,18 @@ private fun ProductCardContent(
                         )
                     )
                 }
+                Text(
+                    text = name!!,
+                    style = MaterialTheme.typography.bodyLarge.copy(
+                        fontWeight = FontWeight.ExtraBold
+                    )
+                )
+                Text(
+                    text = brands!!,
+                    style = MaterialTheme.typography.bodySmall.copy(
+                        fontWeight = FontWeight.ExtraBold
+                    )
+                )
             }
             if (expandable) {
                 IconButton(onClick = { expanded = !expanded }) {
