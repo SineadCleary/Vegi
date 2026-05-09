@@ -31,6 +31,15 @@ class FirestoreRepository
             .document(productId).get().await().toObject()
     }
 
+    override suspend fun getByBarcode(email: String, barcode: String): Product? {
+        val result = firestore.collection(PRODUCT_COLLECTION)
+            .whereEqualTo("email", email)
+            .whereEqualTo("barcode", barcode)
+            .get()
+            .await()
+        return result.documents.firstOrNull()?.toObject(Product::class.java)
+    }
+
     override suspend fun insert(email: String,
                                 product: Product)
     {

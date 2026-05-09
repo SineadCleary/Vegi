@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ie.setu.vegi.data.api.RetrofitRepository
 import ie.setu.vegi.data.models.ProductModel
-import ie.setu.vegi.data.repository.RoomRepository
 import ie.setu.vegi.firebase.services.AuthService
 import ie.setu.vegi.firebase.services.FirestoreService
 import kotlinx.coroutines.launch
@@ -41,7 +40,7 @@ constructor(
                     _product.value = result
                     isErr.value = false
 
-                    insert(result)
+                    tryInsert(result)
                     Timber.i("Product info : $result")
                 }
             }
@@ -60,13 +59,15 @@ constructor(
         isErr.value = false
     }
 
-    fun insert(product: ProductModel) = viewModelScope.launch {
+    fun tryInsert(product: ProductModel) = viewModelScope.launch {
 
         try {
 
             isLoading.value = true
 
-            firestoreRepository.insert(authService.email!!, product)
+            if (firestoreRepository.getByBarcode(authService.email!!, product.barcode) == null)
+                firestoreRepository.insert(authService.email!!, product)
+            else firestoreRepository.update(authService.email!!, product)
 
         } catch (e: Exception) {
 

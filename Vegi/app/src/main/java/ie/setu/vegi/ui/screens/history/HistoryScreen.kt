@@ -58,7 +58,7 @@ fun HistoryScreen(modifier: Modifier = Modifier,
                 if(isLoading) ShowLoader("Loading Donations...")
                 if (!isError) {
                     ProductCardList(
-                        products = products.reversed(),
+                        products = products,
                         onClickDetails = onClickDetails,
                         onDeleteProduct = { product: ProductModel
                             ->
