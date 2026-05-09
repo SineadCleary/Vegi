@@ -8,6 +8,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import ie.setu.vegi.data.models.ProductModel
+import ie.setu.vegi.data.models.VegStatus
 import ie.setu.vegi.ui.components.camera.CameraPermissionScreen
 import ie.setu.vegi.ui.components.camera.CameraPreview
 import ie.setu.vegi.ui.components.general.ShowError
@@ -55,7 +56,12 @@ fun ScanScreen(modifier: Modifier = Modifier,
 
             product != null -> {
                 ProductCard(
-                    vegStaus = product!!.vegStatus.toString(),
+                    vegStaus = when (product!!.vegStatus) {
+                        VegStatus.VEGAN -> "Vegan"
+                        VegStatus.VEGETARIAN -> "Vegetarian"
+                        VegStatus.NON_VEGETARIAN -> "Non-vegetarian"
+                        else -> "Unknown"
+                    },
                     name = product!!.name,
                     brand = product!!.brand,
                     imagePath = product!!.imageUrl,

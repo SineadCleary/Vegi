@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import ie.setu.vegi.data.models.ProductModel
 import ie.setu.vegi.data.models.VegStatus
 import ie.setu.vegi.data.models.fakeProducts
+import ie.setu.vegi.data.models.mapVegStatus
 import ie.setu.vegi.ui.theme.VegiTheme
 import java.text.DateFormat
 
@@ -47,7 +48,12 @@ internal fun ProductCardList(
             key = { product -> product._id }
         ) { product ->
             ProductCard(
-                vegStaus = product.vegStatus.toString(),
+                vegStaus = when (product.vegStatus) {
+                    VegStatus.VEGAN -> "Vegan"
+                    VegStatus.VEGETARIAN -> "Vegetarian"
+                    VegStatus.NON_VEGETARIAN -> "Non-vegetarian"
+                    else -> "Unknown"
+                },
                 name = product.name,
                 brand = product.brand,
                 imagePath = product.imageUrl,
