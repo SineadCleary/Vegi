@@ -43,18 +43,19 @@ fun HistoryScreen(modifier: Modifier = Modifier,
     val isLoading = historyViewModel.isloading.value
     var filters by remember { mutableStateOf(setOf<VegStatus>()) }
 
-    if (products.isEmpty() && !isError){
-        Centre(Modifier.fillMaxSize()) {
-            Text(color = MaterialTheme.colorScheme.secondary,
-                fontWeight = FontWeight.Bold,
-                fontSize = 30.sp,
-                lineHeight = 34.sp,
-                textAlign = TextAlign.Center,
-                text = stringResource(R.string.emptyList))
+
+    Box(modifier = Modifier.fillMaxSize()) {
+        if (products.isEmpty() && !isError){
+            Centre(Modifier.fillMaxSize()) {
+                Text(color = MaterialTheme.colorScheme.secondary,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 30.sp,
+                    lineHeight = 34.sp,
+                    textAlign = TextAlign.Center,
+                    text = stringResource(R.string.emptyList))
+            }
         }
-    }
-    else {
-        Box(modifier = Modifier.fillMaxSize()) {
+        else {
             Column(
                 modifier = modifier.padding(
                     start = 10.dp,
@@ -85,13 +86,13 @@ fun HistoryScreen(modifier: Modifier = Modifier,
                         onClick = { historyViewModel.getProducts() })
                 }
             }
-            ScanFloatingActionButton(
-                onClick = onClickScan,
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(16.dp)
-            )
         }
+        ScanFloatingActionButton(
+            onClick = onClickScan,
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(16.dp)
+        )
     }
 }
 
