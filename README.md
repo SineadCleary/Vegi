@@ -1,6 +1,8 @@
 # Vegi
 **Vegi** is a native Android application built with Kotlin and Jetpack Compose used for scanning products to determine whether they are vegan, vegetarian, or neither.
 
+[Demo video](https://www.youtube.com/watch?v=8DyxmqrNoUo)
+
 ## Features
 - Scan product barcodes using the device camera.
 - Retrieve product information from the Open Food Facts API.
